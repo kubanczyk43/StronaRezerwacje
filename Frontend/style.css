@@ -1,0 +1,368 @@
+body
+{   
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #D3D3D3;
+    text-align: center;
+}
+
+#container
+{
+    display: flex; /* Ustawienie Flexboxa */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    justify-content: center; /* Wyśrodkowanie elementów w poziomie */
+    gap: 20px; /* Odstępy między elementami */
+}
+#container2{
+     display: flex; /* Ustawienie Flexboxa */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    justify-content: center; /* Wyśrodkowanie elementów w poziomie */
+    gap: 20px; /* Odstępy między elementami */
+}
+#naglowek1
+{
+    margin-top: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+#naglowek1 button {
+    border-radius: 20px;
+    width: 200px;
+    height: 50px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+#naglowek1 button:last-child {
+    margin-right: 0;
+}
+#naglowek3{
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie elementów w poziomie */
+    align-items: center; /* Wyrównanie elementów w pionie */
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex; /* Ustawienie Flexboxa dla listy */
+    gap: 10px; /* Odstępy między elementami listy */
+    margin: 0; /* Usunięcie domyślnych marginesów */
+}
+
+li {
+    font-weight: bold;
+    min-width: 100px;
+    min-height: 60px;
+    background-color: white;
+    color: #20B2AA;
+    padding: 10px;
+    margin: 0; /* Usunięcie marginesów */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    cursor: pointer;
+}
+li:hover
+{
+    background-color: #20B2AA;
+    color:white;
+}
+button {
+    background-color: #20B2AA;
+    color: white;
+    border: none;
+    width: 50px; /* Szerokość przycisku */
+    height: 50px; /* Wysokość przycisku */
+    border-radius: 50%; /* Zaokrąglenie do kształtu koła */
+    cursor: pointer;
+    display: row; /* Wyśrodkowanie tekstu w przycisku */
+    align-items: center; /* Wyśrodkowanie w pionie */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    margin: 10px;
+}
+button:hover {
+    background-color: #20B2AA; /* Zmiana koloru przy najechaniu */
+}
+h3
+{
+    display: flex;
+}
+.arrows {
+    margin-left: 7px;
+    max-width: 24px;
+    max-height: 24px;
+    display: block; /* Upewnij się, że obraz zachowuje się jak blok */
+}
+li.selected {
+    background-color: #20B2AA !important;
+    color: white !important;
+}
+#Reservation{
+    font-weight: bold;
+    background-color: #20B2AA;
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    max-width: 200px;
+    max-height: 200px;
+    width: 100px;
+    height: 40px;
+}
+#form {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#form input {
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    flex: 1 1 45%;
+    min-width: 150px;
+    margin-bottom: 10px;
+}
+#container4 h3 {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#container4 li
+{
+    display: flex; /* Ustawienie Flexboxa */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    justify-content: center; /* Wyśrodkowanie elementów w poziomie */
+    gap: 20px; /* Odstępy między elementami */
+    margin-top: 20px; 
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    min-width: 100px;
+    min-height: 60px;
+    
+}
+#container4:hover li{
+    background-color: white /* Zmiana koloru tła przy najechaniu */
+}
+.centered-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+}
+
+.reservation-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    list-style-type: none;
+}
+li.booked {
+    background-color: orange !important;
+    color: white !important;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+#checkDiv
+{
+    margin-top: 5%;
+}
+#checkContainer
+{
+    background-color: #A9A9A9;
+    padding: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 20px;
+}
+#checkButton
+{
+    margin-top: 30px;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+}
+#checkDate
+{
+    width: 400px;
+    height: 30px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+}
+#cancelReservation
+{
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+@media (max-width: 900px) {
+    #naglowek1 {
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 10px;
+    }
+    #checkContainer {
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 15px;
+    }
+    #checkDate {
+        width: 90%;
+        min-width: 120px;
+    }
+
+    ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    li {
+        min-width: 40px;
+        font-size: 0.95rem;
+        padding: 8px;
+    }
+    #form {
+        grid-template-columns: 1fr;
+        max-width: 95vw;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    #naglowek1 {
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 5px;
+    }
+    #checkContainer {
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 8px;
+    }
+    #checkDate {
+        width: 98%;
+        min-width: 80px;
+    }
+
+    ul {
+        gap: 2px;
+    }
+    li {
+        min-width: 40px;
+        font-size: 0.9rem;
+        padding: 4px;
+    }
+    #form {
+        grid-template-columns: 1fr;
+        max-width: 99vw;
+        gap: 5px;
+    }
+}
+/* Styl panelu logowania/rejestracji */
+#auth-panel {
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #fff;
+    padding: 30px 20px 20px 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(32, 178, 170, 0.08);
+    max-width: 400px;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#auth-panel h2 {
+    color: #20B2AA;
+    margin-bottom: 20px;
+}
+
+#auth-panel input[type="text"],
+#auth-panel input[type="email"],
+#auth-panel input[type="password"] {
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 90%;
+    margin-bottom: 15px;
+    background-color: #f5f5f5;
+    font-size: 1rem;
+    transition: box-shadow 0.2s;
+}
+
+#auth-panel input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #20B2AA33;
+}
+
+#auth-panel button {
+    background-color: #20B2AA;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#auth-panel button:hover {
+    background-color: #179b95;
+}
+
+#auth-panel a {
+    color: #20B2AA;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#auth-panel p {
+    margin: 10px 0 0 0;
+    font-size: 0.95rem;
+}
+
+#auth-panel div[style*="color:red"] {
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+#btnLogin, #btnRegister
+{
+    width: 400px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+@media (max-width: 900px) {
+    #auth-panel {
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 15px;
+        max-width: 95vw;
+    }
+}
+
+@media (max-width: 600px) {
+    #auth-panel {
+        margin-left: 2%;
+        margin-right: 2%;
+        padding: 8px;
+        min-width: unset;
+    }
+}

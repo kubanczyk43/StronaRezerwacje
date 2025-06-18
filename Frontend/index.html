@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rezerwacja-Dentysta</title>
+        <meta name="theme-color" content="#20B2AA">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" href="dentistry_192dp_20B2AA_FILL0_wght400_GRAD0_opsz48.png">
+        
+    </head>
+    <body >
+        
+        <div id="main">
+            <div id="auth-panel">
+            <!-- Panel logowania -->
+            <div v-if="showLogin">
+                <h2>Logowanie</h2>
+                <input v-model="loginEmail" type="email" placeholder="Email">
+                <input v-model="loginPassword" type="password" placeholder="Hasło">
+                <button @click="login" id="btnLogin">Zaloguj</button>
+                <p>
+                Nie masz konta?
+                <a href="#" @click.prevent="showLogin = false; showRegister = true">Zarejestruj się</a>
+                </p>
+                <div v-if="loginError" style="color:red;">{{ loginError }}</div>
+            </div>
+
+            <!-- Panel rejestracji -->
+            <div v-if="showRegister">
+                <h2>Rejestracja</h2>
+                <input v-model="registerName" type="text" placeholder="Imię">
+                <div v-if="registerName && registerName.length < 3" style="color:red;">Imię min. 3 znaki</div>
+                <input v-model="registerSurname" type="text" placeholder="Nazwisko">
+                <div v-if="registerSurname && registerSurname.length < 3" style="color:red;">
+                Nazwisko musi mieć co najmniej 3 znaki.
+                </div>
+                <input v-model="registerEmail" type="email" placeholder="Email">
+                <div v-if="registerEmail && !isRegisterEmailValid" style="color:red;">
+                Nieprawidłowy adres email.
+                </div>
+                <input v-model="registerPassword" type="password" placeholder="Hasło">
+            
+                <input v-model="registerPasswordRepeat" type="password" placeholder="Powtórz hasło">
+                <button @click="register" id="btnRegister">Zarejestruj</button>
+                <p>
+                Masz już konto?
+                <a href="#" @click.prevent="showRegister = false; showLogin = true">Zaloguj się</a>
+                </p>
+                <div v-if="registerError" style="color:red;">{{ registerError }}</div>
+            </div>
+            </div>
+        <div id="naglowek1">
+            <button id="showAppBtn" @click="showApp = true; showCheck = false" style="margin-right: 10px;">Wybierz termin</button>
+            <button id="showCheckBtn" @click="showCheck = true; showApp = false">Sprawdź termin</button>
+        </div>
+        <div id="checkDiv" v-if="showCheck">
+                <div id="checkContainer">
+                    <h3 id="naglowek3">Sprawdź dostępność terminu</h3>
+                    <input type="text" id="checkDate" placeholder="Wprowadź kod rezerwacji" v-model="checkDate">
+                    <br>
+                    <button id="checkButton" @click="checkAvailability">Sprawdź</button>
+                    <div v-if="foundReservation" class="reservation-info" style="margin-top:20px;">
+                        <div>
+                            <b>Imię:</b> {{ foundReservation.imie || '---' }}<br>
+                            <b>Nazwisko:</b> {{ foundReservation.nazwisko || '---' }}<br>
+                            <b>Data:</b> {{ foundReservation.date.dayOfWeek }} {{ foundReservation.date.day }}.{{ foundReservation.date.month }}.{{ foundReservation.date.year }}<br>
+                            <b>Godzina:</b> {{ foundReservation.date.hour }}:00
+                        </div>
+                        <button id="cancelReservation" type="button" @click="cancelReservation" style="margin-top:15px; background:#e74c3c; color:white; border:none; border-radius:8px; padding:8px 16px; cursor:pointer;">
+                            Anuluj rezerwację
+                        </button>
+                    </div>
+                    <div v-else-if="checkDate">
+                        <span style="color:red;">Nie znaleziono rezerwacji o podanym kodzie.</span>
+                    </div>
+                </div>
+            </div>
+        <div id="app" v-if="showApp">
+            <h3 id="naglowek3"> {{ currentMonthName }} {{currentYear}}</h3>
+            <div id="container">
+            <button id="ButtonLeft" @click="prevPage"><img src="chevron_left_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.png" class="arrows"></button>
+            <ul>
+                <li
+                    v-for="(date, index) in visibleDates"
+                    :key="index"
+                    @click="SelectHour($event, index)"
+                    :class="{ selected: selectedDateIndex === index }"
+                    >
+                    {{ date.dayOfWeek }} <br> {{ date.day }} <br> {{ date.year }}
+                </li>
+            </ul>
+            <button id="ButtonRight" @click="nextPage"><img src="chevron_right_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.png" class="arrows"></button>
+            </div>
+            <div v-if="showContainer2">
+            <h3 id="naglowek3">Wybierz godzinę</h3>
+            <div id="container2" >
+                
+                <button id="ButtonLeft3" @click="prevPageHours" v-if="hours.length > 0"><img src="chevron_left_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.png" class="arrows"></button>
+                <ul v-if="selectedDate && visibleHours.length > 0">
+                    <li
+                        v-for="(hour, index) in visibleHours"
+                        :key="hour"
+                        @click="!isHourBooked(selectedDate, hour) && (selectedHourIndex = index)"
+                        :class="{
+                            selected: selectedHourIndex === index,
+                            booked: isHourBooked(selectedDate, hour)
+                        }"
+                    >
+                        {{ hour }}:00
+                        <div v-if="isHourBooked(selectedDate, hour)">Zarezerwowana</div>
+                    </li>
+                </ul>
+                <div v-else>
+                    Brak dostępnych terminów
+                </div>
+                <button id="ButtonRight4" @click="nextPageHours" v-if="hours.length > 0" ><img src="chevron_right_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.png" class="arrows"></button>
+        </div>
+        <div id="container3">
+            <div id="form">
+                <input type="text" id="imię" placeholder="Imię" v-model="imie">
+                <input type="text" id="nazwisko" placeholder="Nazwisko" v-model="nazwisko">
+                <input type="text" id="telefon" placeholder="Telefon" v-model="telefon">
+                <input type="text" id="email" placeholder="e-mail" v-model="email">
+            </div>
+            <button id="Reservation" @click="SaveReservation">Zarezerwuj</button>
+        </div>
+        <div id="container4">
+            <h3 v-if="sessionReservations.length > 0" class="centered-header">Rezerwacja</h3>
+            <ul v-if="sessionReservations.length > 0" class="reservation-list">
+                <li v-for="reservation in sessionReservations" :key="reservation.code">
+                    Zapisz kod twojej rezerwacji Kod: {{ reservation.code }}, Data: {{ reservation.date.day }}.{{reservation.date.month}}.{{ reservation.date.year }} o godzinie {{ reservation.date.hour }}:00
+                </li>
+            </ul>
+        </div>
+        
+        </div>
+        </div>
+        </div>
+    </body>
+    <script src="app.js"></script> 
+</html>
