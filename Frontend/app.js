@@ -188,6 +188,7 @@ const { createApp, ref, computed } = Vue;
                 }
                 // --- ZAPISYWANIE REZERWACJI ---
                     async function SaveReservation() {
+                        showContainer2.value = true;
                         console.log('Przed rezerwacją:', showContainer2.value, selectedDateIndex.value, selectedHourIndex.value);
                         if (selectedDateIndex.value === null || selectedHourIndex.value === null) {
                             alert('Wybierz datę i godzinę!');
@@ -222,17 +223,19 @@ const { createApp, ref, computed } = Vue;
                         });
 
                          if (response.ok) {
-                            sessionReservations.value.push(reservation);
-                            await fetchBookedHours();
                             showContainer2.value = true;
+                            sessionReservations.value.push(reservation);
+                            
                              console.log('Po rezerwacji:', showContainer2.value, selectedDateIndex.value, selectedHourIndex.value);
                         } else {
                             alert('Błąd przy zapisie rezerwacji');
                         }
+                        
                     }
                     
+                    
                 
-
+                    
                 // --- SPRAWDZANIE REZERWACJI PO KODZIE ---
                 async function checkAvailability() {
                     const code = checkDate.value.trim();
@@ -257,7 +260,9 @@ const { createApp, ref, computed } = Vue;
                     });
                     if (response.ok) {
                         checkDate.value = 'anulowano';
+                        setTimeout(() => {
                         foundReservation.value = null;
+                        }, 4000);
                         await fetchBookedHours();
                     } else {
                         alert('Błąd przy anulowaniu rezerwacji');
